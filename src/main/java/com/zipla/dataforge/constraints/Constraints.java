@@ -8,4 +8,8 @@ public class Constraints {
     public static IntConstraint range(int min, int max) {
         return new IntConstraint(min, max);
     }
+
+    public static DoubleConstraint rangeDouble(double min, double max) {
+        return new DoubleConstraint(min, max);
+    }
 }

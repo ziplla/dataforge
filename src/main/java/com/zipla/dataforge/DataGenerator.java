@@ -1,5 +1,6 @@
 package com.zipla.dataforge;
 
+import com.zipla.dataforge.constraints.DoubleConstraint;
 import com.zipla.dataforge.constraints.IntConstraint;
 import com.zipla.dataforge.constraints.StringConstraint;
 import com.zipla.dataforge.templates.Template;
@@ -17,12 +18,14 @@ public class DataGenerator {
     private final Map<String, Object> generatedData;
     private final Map<String, StringConstraint> stringConstraints;
     private final Map<String, IntConstraint> intConstraints;
+    private final Map<String, DoubleConstraint> doubleConstraints;
     private final Map<String, Template> templates;
 
     public DataGenerator() {
         this.generatedData = new HashMap<>();
         this.stringConstraints = new HashMap<>();
         this.intConstraints = new HashMap<>();
+        this.doubleConstraints = new HashMap<>();
         this.templates = new HashMap<>();
     }
 
@@ -32,6 +35,10 @@ public class DataGenerator {
 
     public void addIntegerField(String fieldName, IntConstraint constraints) {
         intConstraints.put(fieldName, constraints);
+    }
+
+    public void addDoubleField(String fieldName, DoubleConstraint constraints) {
+        doubleConstraints.put(fieldName, constraints);
     }
 
     public void addTemplate(String fieldName, Template template) {
@@ -45,6 +52,10 @@ public class DataGenerator {
 
         for (String fieldName : intConstraints.keySet()) {
             generatedData.put(fieldName, generateInt(fieldName));
+        }
+
+        for (String fieldName : doubleConstraints.keySet()) {
+            generatedData.put(fieldName, generateDouble(fieldName));
         }
 
         for (String fieldName : templates.keySet()) {
@@ -84,6 +95,15 @@ public class DataGenerator {
         int max = constraint.getMax();
 
         return min + (int)(Math.random() * max);
+    }
+
+    private double generateDouble(String fieldName) {
+        DoubleConstraint constraint = doubleConstraints.get(fieldName);
+        double min = constraint.getMin();
+        double max = constraint.getMax();
+        Random random = new Random();
+
+        return min + (max - min) * random.nextDouble();
     }
 
     private Object generateFromTemplate(String fieldName) {

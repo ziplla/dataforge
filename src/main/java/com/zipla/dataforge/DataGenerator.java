@@ -1,5 +1,9 @@
 package com.zipla.dataforge;
 
+import com.zipla.dataforge.constraints.IntConstraint;
+import com.zipla.dataforge.constraints.StringConstraint;
+import com.zipla.dataforge.templates.Template;
+import com.zipla.dataforge.templates.Templates;
 import lombok.ToString;
 
 import java.util.HashMap;
@@ -13,11 +17,13 @@ public class DataGenerator {
     private final Map<String, Object> generatedData;
     private final Map<String, StringConstraint> stringConstraints;
     private final Map<String, IntConstraint> intConstraints;
+    private final Map<String, Template> templates;
 
     public DataGenerator() {
         this.generatedData = new HashMap<>();
         this.stringConstraints = new HashMap<>();
         this.intConstraints = new HashMap<>();
+        this.templates = new HashMap<>();
     }
 
     public void addStringField(String fieldName, StringConstraint constraints) {
@@ -28,6 +34,10 @@ public class DataGenerator {
         intConstraints.put(fieldName, constraints);
     }
 
+    public void addTemplate(String fieldName, Template template) {
+        templates.put(fieldName, template);
+    }
+
     public Map<String, Object> generate() {
         for (String fieldName : stringConstraints.keySet()) {
             generatedData.put(fieldName, generateString(fieldName));
@@ -35,6 +45,10 @@ public class DataGenerator {
 
         for (String fieldName : intConstraints.keySet()) {
             generatedData.put(fieldName, generateInt(fieldName));
+        }
+
+        for (String fieldName : templates.keySet()) {
+            generatedData.put(fieldName, generateFromTemplate(fieldName));
         }
 
         return generatedData;
@@ -70,5 +84,12 @@ public class DataGenerator {
         int max = constraint.getMax();
 
         return min + (int)(Math.random() * max);
+    }
+
+    private Object generateFromTemplate(String fieldName) {
+        Template template = templates.get(fieldName);
+
+        // Логика использования шаблона для генерации данных
+        return template.generate();
     }
 }

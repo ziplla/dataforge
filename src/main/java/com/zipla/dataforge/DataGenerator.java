@@ -4,7 +4,6 @@ import com.zipla.dataforge.constraints.DoubleConstraint;
 import com.zipla.dataforge.constraints.IntConstraint;
 import com.zipla.dataforge.constraints.StringConstraint;
 import com.zipla.dataforge.templates.Template;
-import com.zipla.dataforge.templates.Templates;
 import lombok.ToString;
 
 import java.util.HashMap;
@@ -109,7 +108,6 @@ public class DataGenerator {
     private Object generateFromTemplate(String fieldName) {
         Template template = templates.get(fieldName);
 
-        // Логика использования шаблона для генерации данных
         return template.generate();
     }
 }

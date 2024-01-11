@@ -1,4 +1,4 @@
-package com.zipla.dataforge;
+package com.zipla.dataforge.constraints;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

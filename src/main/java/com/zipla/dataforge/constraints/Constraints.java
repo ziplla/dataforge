@@ -1,4 +1,4 @@
-package com.zipla.dataforge;
+package com.zipla.dataforge.constraints;
 
 public class Constraints {
     public static StringConstraint length(int minLength, int maxLength) {

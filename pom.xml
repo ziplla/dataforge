@@ -32,6 +32,14 @@
         <system>GitHub</system>
         <url>https://github.com/1zpa1/dataforge/issues</url>
     </issueManagement>
+    <distributionManagement>
+        <repository>
+            <id>dataforge</id>
+            <url>https://github.com/1zpa1/dataforge.git</url>
+        </repository>
+    </distributionManagement>
+
+
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -46,5 +54,15 @@
 
 
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+            </plugin>
+        </plugins>
+    </build>
+
 
 </project>

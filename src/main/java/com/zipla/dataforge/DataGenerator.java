@@ -45,12 +45,11 @@ public class DataGenerator {
         int minLength = constraint.getMinLength();
         int maxLength = constraint.getMaxLength();
 
-        // Логика генерации строки в пределах заданных ограничений
-        return generateRandomString(minLength, maxLength);  // Замените на вашу реальную логику генерации
+        return generateRandomString(minLength, maxLength);
     }
     public static String generateRandomString(int minLength, int maxLength) {
         if (minLength < 0 || maxLength < 0 || minLength > maxLength) {
-            throw new IllegalArgumentException("Некорректные параметры длины строки");
+            throw new IllegalArgumentException("Incorrect string length parameters");
         }
 
         Random random = new Random();
@@ -58,7 +57,7 @@ public class DataGenerator {
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            char randomChar = (char) (random.nextInt(26) + 'a'); // Генерация случайной буквы от 'a' до 'z'
+            char randomChar = (char) (random.nextInt(26) + 'a');
             sb.append(randomChar);
         }
 
@@ -70,7 +69,6 @@ public class DataGenerator {
         int min = constraint.getMin();
         int max = constraint.getMax();
 
-        // Логика генерации числа в пределах заданных ограничений
-        return min + (int)(Math.random() * max);  // Замените на вашу реальную логику генерации
+        return min + (int)(Math.random() * max);
     }
 }

@@ -8,6 +8,30 @@
     <packaging>jar</packaging>
     <name>dataforge</name>
     <description>This is a Java library that helps generate test data</description>
+    <url>https://github.com/1zpa1/dataforge.git</url>
+    <inceptionYear>2024</inceptionYear>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://github.com/1zpa1/dataforge/blob/45336137255ccc78e084ca34b02a76bda73ff606/LICENSE</url>
+            <distribution>site</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>1</id>
+            <name>Pavel Zaytsev</name>
+            <email>pzajtsev.01@gmail.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+4</timezone>
+        </developer>
+    </developers>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/1zpa1/dataforge/issues</url>
+    </issueManagement>
     <properties>
         <java.version>11</java.version>
     </properties>

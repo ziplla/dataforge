@@ -7,7 +7,7 @@ public class PhoneNumberTemplate implements Template {
     public static String generateRandomPhoneNumber() {
         Random random = new Random();
 
-        String countryCodeAndFirstDigit = "+7" + (random.nextInt(9) + 1);
+        String countryCodeAndFirstDigit = "+7";
 
         long phoneNumberRemainingDigits = 1000000000L + Math.abs(random.nextLong()) % 9000000000L;
 

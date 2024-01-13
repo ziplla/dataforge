@@ -1,9 +1,9 @@
-package com.ziplla.dataforge;
+package ru.ziplla.dataforge;
 
-import com.ziplla.dataforge.constraints.DoubleConstraint;
-import com.ziplla.dataforge.constraints.IntConstraint;
-import com.ziplla.dataforge.constraints.StringConstraint;
-import com.ziplla.dataforge.templates.Template;
+import ru.ziplla.dataforge.constraints.DoubleConstraint;
+import ru.ziplla.dataforge.constraints.IntConstraint;
+import ru.ziplla.dataforge.constraints.StringConstraint;
+import ru.ziplla.dataforge.templates.Template;
 import lombok.Getter;
 import lombok.ToString;
 

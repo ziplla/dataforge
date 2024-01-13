@@ -1,7 +1,7 @@
-package com.ziplla.dataforge;
+package ru.ziplla.dataforge;
 
-import com.ziplla.dataforge.constraints.Constraints;
-import com.ziplla.dataforge.templates.Templates;
+import ru.ziplla.dataforge.constraints.Constraints;
+import ru.ziplla.dataforge.templates.Templates;
 
 import java.util.Map;
 

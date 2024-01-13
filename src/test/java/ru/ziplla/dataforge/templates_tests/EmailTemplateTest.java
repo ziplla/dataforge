@@ -1,6 +1,6 @@
-package com.ziplla.dataforge.templates_tests;
+package ru.ziplla.dataforge.templates_tests;
 
-import com.ziplla.dataforge.templates.EmailTemplate;
+import ru.ziplla.dataforge.templates.EmailTemplate;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

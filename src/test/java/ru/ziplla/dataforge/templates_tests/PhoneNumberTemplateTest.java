@@ -1,6 +1,6 @@
-package com.ziplla.dataforge.templates_tests;
+package ru.ziplla.dataforge.templates_tests;
 
-import com.ziplla.dataforge.templates.PhoneNumberTemplate;
+import ru.ziplla.dataforge.templates.PhoneNumberTemplate;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

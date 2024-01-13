@@ -1,4 +1,4 @@
-package com.ziplla.dataforge.templates;
+package ru.ziplla.dataforge.templates;
 
 import java.util.Random;
 

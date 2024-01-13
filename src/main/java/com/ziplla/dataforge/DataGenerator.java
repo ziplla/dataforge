@@ -1,9 +1,9 @@
-package com.zipla.dataforge;
+package com.ziplla.dataforge;
 
-import com.zipla.dataforge.constraints.DoubleConstraint;
-import com.zipla.dataforge.constraints.IntConstraint;
-import com.zipla.dataforge.constraints.StringConstraint;
-import com.zipla.dataforge.templates.Template;
+import com.ziplla.dataforge.constraints.DoubleConstraint;
+import com.ziplla.dataforge.constraints.IntConstraint;
+import com.ziplla.dataforge.constraints.StringConstraint;
+import com.ziplla.dataforge.templates.Template;
 import lombok.ToString;
 
 import java.util.HashMap;

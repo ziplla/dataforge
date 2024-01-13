@@ -1,4 +1,4 @@
-package com.zipla.dataforge.templates;
+package com.ziplla.dataforge.templates;
 
 public interface Template {
     Object generate();

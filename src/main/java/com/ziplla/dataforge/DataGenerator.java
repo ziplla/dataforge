@@ -4,6 +4,7 @@ import com.ziplla.dataforge.constraints.DoubleConstraint;
 import com.ziplla.dataforge.constraints.IntConstraint;
 import com.ziplla.dataforge.constraints.StringConstraint;
 import com.ziplla.dataforge.templates.Template;
+import lombok.Getter;
 import lombok.ToString;
 
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.Map;
 import java.util.Random;
 
 @ToString
+@Getter
 public class DataGenerator {
 
     private final Map<String, Object> generatedData;

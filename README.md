@@ -1,4 +1,4 @@
-# DataForge
+# Data Forge
 
 This is a Java library that helps generate test data
 

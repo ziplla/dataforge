@@ -19,7 +19,6 @@ public class EmailTemplate implements Template{
         String suffix = SUFFIXES[random.nextInt(SUFFIXES.length)];
         String provider = EMAIL_PROVIDERS[random.nextInt(EMAIL_PROVIDERS.length)];
 
-        int randomNumber = random.nextInt(1000);
 
         return prefix + suffix + "@" + provider + ".com";
     }

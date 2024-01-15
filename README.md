@@ -27,9 +27,10 @@ public class App {
 
         dataGenerator.addIntegerField("age", Constraints.range(1, 3));
         dataGenerator.addDoubleField("salary", Constraints.rangeDouble(1, 1000));
-        dataGenerator.addStringField("name", Constraints.length(2, 6));
+        dataGenerator.addStringField("string", Constraints.length(2, 6));
         dataGenerator.addTemplate("email", Templates.email());
         dataGenerator.addTemplate("phone number", Templates.phoneNumber());
+        dataGenerator.addTemplate("name", Templates.name());
 
         Map<String, Object> generatedData = dataGenerator.generate();
     }

@@ -9,4 +9,8 @@ public class Templates {
     public static Template phoneNumber() {
         return new PhoneNumberTemplate();
     }
+
+    public static Template name() {
+        return new NameTemplate();
+    }
 }

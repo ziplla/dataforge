@@ -9,9 +9,6 @@ import java.util.Map;
 import java.util.Random;
 
 public class EmailTemplate implements Template{
-    public static final String[] EMAIL_PROVIDERS = {"gmail", "yahoo", "hotmail", "outlook", "example"};
-    public static final String[] PREFIXES = {"john", "alice", "bob", "emma", "david", "susan"};
-    public static final String[] SUFFIXES = {"123", "456", "789", "abc", "xyz"};
 
     @Override
     public Object generate() {

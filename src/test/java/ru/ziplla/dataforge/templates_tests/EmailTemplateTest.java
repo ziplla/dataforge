@@ -1,7 +1,14 @@
 package ru.ziplla.dataforge.templates_tests;
 
+import org.yaml.snakeyaml.Yaml;
 import ru.ziplla.dataforge.templates.EmailTemplate;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 public class EmailTemplateTest {
@@ -14,14 +21,30 @@ public class EmailTemplateTest {
 
         assertTrue(email.contains("@"));
 
-        boolean isValidProvider = false;
-        for (String provider : EmailTemplate.EMAIL_PROVIDERS) {
-            if (email.contains(provider)) {
-                isValidProvider = true;
-                break;
+        Yaml yaml = new Yaml();
+
+        try (InputStream inputStream = EmailTemplate.class.getClassLoader().getResourceAsStream("email.yml")) {
+
+            Map<String, List<String>> data = yaml.load(inputStream);
+
+            List<String> providers = data.get("providers");
+            List<String> prefixes = data.get("prefixes");
+            List<String> suffixes = data.get("suffixes");
+
+
+            boolean isValidProvider = false;
+            for (String provider : providers) {
+                if (email.contains(provider)) {
+                    isValidProvider = true;
+                    break;
+                }
             }
+            assertTrue(isValidProvider);
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        assertTrue(isValidProvider);
+
     }
 
     @Test

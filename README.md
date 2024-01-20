@@ -9,7 +9,7 @@ First, you add this to your `pom.xml`:
 <dependency>
   <groupId>ru.ziplla</groupId>
   <artifactId>dataforge</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
 </dependency>
 ```
 

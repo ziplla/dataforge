@@ -22,4 +22,4 @@ jobs:
       - uses: actions/cache@v3
       - run: java -version
       - run: mvn -version
-      - run: mvn --errors --batch-mode --% -Dgpg.skip=true clean install
+      - run: mvn --errors --batch-mode -Dgpg.skip=true clean install

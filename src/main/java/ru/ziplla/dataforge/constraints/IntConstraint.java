@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 public class IntConstraint {
 
-    private final int min;
-    private final int max;
+    private final int firstLimit;
+    private final int secondLimit;
 }

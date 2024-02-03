@@ -71,19 +71,11 @@ public class DataGenerator {
         int firstLimit = constraint.getFirstLimit();
         int secondLimit = constraint.getSecondLimit();
 
-        int minLength;
-        int maxLength;
+        MinMax minMax = selectMinMax(firstLimit, secondLimit);
 
-        if (firstLimit >= secondLimit) {
-            minLength = secondLimit;
-            maxLength = firstLimit;
-        } else {
-            minLength = firstLimit;
-            maxLength = secondLimit;
-        }
-
-        return generateRandomString(minLength, maxLength);
+        return generateRandomString(minMax.min, minMax.max);
     }
+
     public static String generateRandomString(int minLength, int maxLength) {
         if (minLength < 0 || maxLength < 0 || minLength > maxLength) {
             throw new IllegalArgumentException("Incorrect string length parameters");
@@ -106,18 +98,9 @@ public class DataGenerator {
         int firstLimit = constraint.getFirstLimit();
         int secondLimit = constraint.getSecondLimit();
 
-        int min;
-        int max;
+        MinMax minMax = selectMinMax(firstLimit, secondLimit);
 
-        if (firstLimit >= secondLimit) {
-            min = secondLimit;
-            max = firstLimit;
-        } else {
-            min = firstLimit;
-            max = secondLimit;
-        }
-
-        return rndInt(min, max);
+        return rndInt(minMax.min, minMax.max);
     }
 
     public static int rndInt(int min, int max)
@@ -139,18 +122,9 @@ public class DataGenerator {
         int decimalPlaces = constraint.getDecimalPlaces();
 
 
-        double min;
-        double max;
+        MinMax minMax = selectMinMax((int) firstLimit, (int) secondLimit);
 
-        if (firstLimit >= secondLimit) {
-            min = secondLimit;
-            max = firstLimit;
-        } else {
-            min = firstLimit;
-            max = secondLimit;
-        }
-
-        double generatedValue = rndDouble(min, max);
+        double generatedValue = rndDouble(minMax.min, minMax.max);
 
         double scale = Math.pow(10, decimalPlaces);
         double roundedValue = Math.round(generatedValue * scale) / scale;
@@ -162,5 +136,30 @@ public class DataGenerator {
         Template template = templates.get(fieldName);
 
         return template.generate();
+    }
+
+    class MinMax {
+        final int min;
+        final int max;
+
+        public MinMax(int min, int max) {
+            this.min = min;
+            this.max = max;
+        }
+    }
+
+    private MinMax selectMinMax(int firstLimit, int secondLimit) {
+        int min;
+        int max;
+
+        if (firstLimit >= secondLimit) {
+            min = secondLimit;
+            max = firstLimit;
+        } else {
+            min = firstLimit;
+            max = secondLimit;
+        }
+
+        return new MinMax(min, max);
     }
 }

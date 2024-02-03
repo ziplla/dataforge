@@ -68,8 +68,19 @@ public class DataGenerator {
 
     private String generateString(String fieldName) {
         StringConstraint constraint = stringConstraints.get(fieldName);
-        int minLength = constraint.getMinLength();
-        int maxLength = constraint.getMaxLength();
+        int firstLimit = constraint.getFirstLimit();
+        int secondLimit = constraint.getSecondLimit();
+
+        int minLength;
+        int maxLength;
+
+        if (firstLimit >= secondLimit) {
+            minLength = secondLimit;
+            maxLength = firstLimit;
+        } else {
+            minLength = firstLimit;
+            maxLength = secondLimit;
+        }
 
         return generateRandomString(minLength, maxLength);
     }

@@ -41,7 +41,7 @@ public class DataGeneratorTest {
 
     @Test
     public void testAddDoubleField() {
-        DoubleConstraint constraints = new DoubleConstraint(0.5, 1.5);
+        DoubleConstraint constraints = new DoubleConstraint(0.5, 1.5, 2);
         dataGenerator.addDoubleField("weight", constraints);
 
         assertNotNull(dataGenerator.getDoubleConstraints().get("weight"));
@@ -61,7 +61,7 @@ public class DataGeneratorTest {
     public void testGenerate() {
         dataGenerator.addStringField("name", new StringConstraint(5, 10));
         dataGenerator.addIntegerField("age", new IntConstraint(1, 100));
-        dataGenerator.addDoubleField("weight", new DoubleConstraint(0.5, 1.5));
+        dataGenerator.addDoubleField("weight", new DoubleConstraint(0.5, 1.5, 2));
         dataGenerator.addTemplate("email", new EmailTemplate());
 
         Map<String, Object> generatedData = dataGenerator.generate();

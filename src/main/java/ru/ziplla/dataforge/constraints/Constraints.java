@@ -5,11 +5,11 @@ public class Constraints {
         return new StringConstraint(minLength, maxLength);
     }
 
-    public static IntConstraint range(int min, int max) {
-        return new IntConstraint(min, max);
+    public static IntConstraint range(int firstLimit, int secondLimit) {
+        return new IntConstraint(firstLimit, secondLimit);
     }
 
-    public static DoubleConstraint rangeDouble(double min, double max) {
-        return new DoubleConstraint(min, max);
+    public static DoubleConstraint rangeDouble(double firstLimit, double secondLimit, int decimalPlaces) {
+        return new DoubleConstraint(firstLimit, secondLimit, decimalPlaces);
     }
 }

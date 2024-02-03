@@ -26,7 +26,7 @@ public class App {
         DataGenerator dataGenerator = new DataGenerator();
 
         dataGenerator.addIntegerField("age", Constraints.range(1, 3));
-        dataGenerator.addDoubleField("salary", Constraints.rangeDouble(1, 1000));
+        dataGenerator.addDoubleField("salary", Constraints.rangeDouble(1, 1000, 2));
         dataGenerator.addStringField("string", Constraints.length(2, 6));
         dataGenerator.addTemplate("email", Templates.email());
         dataGenerator.addTemplate("phone number", Templates.phoneNumber());

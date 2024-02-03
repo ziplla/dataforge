@@ -92,19 +92,59 @@ public class DataGenerator {
 
     private int generateInt(String fieldName) {
         IntConstraint constraint = intConstraints.get(fieldName);
-        int min = constraint.getMin();
-        int max = constraint.getMax();
+        int firstLimit = constraint.getFirstLimit();
+        int secondLimit = constraint.getSecondLimit();
 
-        return min + (int)(Math.random() * max);
+        int min;
+        int max;
+
+        if (firstLimit >= secondLimit) {
+            min = secondLimit;
+            max = firstLimit;
+        } else {
+            min = firstLimit;
+            max = secondLimit;
+        }
+
+        return rndInt(min, max);
+    }
+
+    public static int rndInt(int min, int max)
+    {
+        max -= min;
+        return (int) (Math.random() * ++max) + min;
+    }
+    public static double rndDouble(double min, double max)
+    {
+        max -= min;
+        return (double) (Math.random() * ++max) + min;
     }
 
     private double generateDouble(String fieldName) {
         DoubleConstraint constraint = doubleConstraints.get(fieldName);
-        double min = constraint.getMin();
-        double max = constraint.getMax();
-        Random random = new Random();
 
-        return min + (max - min) * random.nextDouble();
+        double firstLimit = constraint.getFirstLimit();
+        double secondLimit = constraint.getSecondLimit();
+        int decimalPlaces = constraint.getDecimalPlaces();
+
+
+        double min;
+        double max;
+
+        if (firstLimit >= secondLimit) {
+            min = secondLimit;
+            max = firstLimit;
+        } else {
+            min = firstLimit;
+            max = secondLimit;
+        }
+
+        double generatedValue = rndDouble(min, max);
+
+        double scale = Math.pow(10, decimalPlaces);
+        double roundedValue = Math.round(generatedValue * scale) / scale;
+
+        return roundedValue;
     }
 
     private Object generateFromTemplate(String fieldName) {

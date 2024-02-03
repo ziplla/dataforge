@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StringConstraint {
-    private final int minLength;
-    private final int maxLength;
+    private final int firstLimit;
+    private final int secondLimit;
 }

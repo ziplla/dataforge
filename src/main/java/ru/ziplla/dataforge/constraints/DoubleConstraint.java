@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DoubleConstraint {
-    private final double min;
-    private final double max;
+    private final double firstLimit;
+    private final double secondLimit;
+    private final int decimalPlaces;
 }

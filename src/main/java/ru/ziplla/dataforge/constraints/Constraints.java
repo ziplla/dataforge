@@ -21,6 +21,10 @@ public class Constraints {
         return new FloatConstraint(firstLimit, secondLimit, decimalPlaces);
     }
 
+    public static FloatConstraint rangeFloat(float firstLimit, float secondLimit) {
+        return new FloatConstraint(firstLimit, secondLimit);
+    }
+
     public static LongConstraint rangeLong(Long firstLimit, Long secondLimit) {
         return new LongConstraint(firstLimit, secondLimit);
     }

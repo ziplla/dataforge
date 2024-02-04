@@ -258,10 +258,13 @@ public class DataGenerator {
 
         float generatedValue = rndFloat(minMax.min, minMax.max);
 
-        float scale = (float) Math.pow(10, decimalPlaces);
-        float roundedValue = Math.round(generatedValue * scale) / scale;
-
-        return roundedValue;
+        if (decimalPlaces > 0) {
+            float scale = (float) Math.pow(10, decimalPlaces);
+            float roundedValue = Math.round(generatedValue * scale) / scale;
+            return roundedValue;
+        } else {
+            return generatedValue;
+        }
     }
 
     private Object generateFromTemplate(String fieldName) {

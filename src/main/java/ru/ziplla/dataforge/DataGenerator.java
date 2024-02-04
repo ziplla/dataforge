@@ -1,8 +1,6 @@
 package ru.ziplla.dataforge;
 
-import ru.ziplla.dataforge.constraints.DoubleConstraint;
-import ru.ziplla.dataforge.constraints.IntConstraint;
-import ru.ziplla.dataforge.constraints.StringConstraint;
+import ru.ziplla.dataforge.constraints.*;
 import ru.ziplla.dataforge.templates.Template;
 import lombok.Getter;
 import lombok.ToString;
@@ -21,6 +19,11 @@ public class DataGenerator {
     private final Map<String, IntConstraint> intConstraints;
     private final Map<String, DoubleConstraint> doubleConstraints;
     private final Map<String, Template> templates;
+    private final Map<String, LongConstraint> longConstraints;
+    private final Map<String, FloatConstraint> floatConstraints;
+    private final Map<String, ByteConstraint> byteConstraints;
+    private final Map<String, ShortConstraint> shortConstraints;
+    private final Map<String, Boolean> booleanConstraints;
 
     public DataGenerator() {
         this.generatedData = new HashMap<>();
@@ -28,6 +31,11 @@ public class DataGenerator {
         this.intConstraints = new HashMap<>();
         this.doubleConstraints = new HashMap<>();
         this.templates = new HashMap<>();
+        this.longConstraints = new HashMap<>();
+        this.floatConstraints = new HashMap<>();
+        this.byteConstraints = new HashMap<>();
+        this.shortConstraints = new HashMap<>();
+        this.booleanConstraints = new HashMap<>();
     }
 
     public void addStringField(String fieldName, StringConstraint constraints) {
@@ -38,8 +46,28 @@ public class DataGenerator {
         intConstraints.put(fieldName, constraints);
     }
 
+    public void addLongField(String fieldName, LongConstraint constraints) {
+        longConstraints.put(fieldName, constraints);
+    }
+
+    public void addByteField(String fieldName, ByteConstraint constraints) {
+        byteConstraints.put(fieldName, constraints);
+    }
+
+    public void addShortField(String fieldName, ShortConstraint constraints) {
+        shortConstraints.put(fieldName, constraints);
+    }
+
     public void addDoubleField(String fieldName, DoubleConstraint constraints) {
         doubleConstraints.put(fieldName, constraints);
+    }
+
+    public void addFloatField(String fieldName, FloatConstraint constraints) {
+        floatConstraints.put(fieldName, constraints);
+    }
+
+    public void addBooleanField(String fieldName) {
+        booleanConstraints.put(fieldName, true);
     }
 
     public void addTemplate(String fieldName, Template template) {
@@ -51,12 +79,32 @@ public class DataGenerator {
             generatedData.put(fieldName, generateString(fieldName));
         }
 
+        for (String fieldName : booleanConstraints.keySet()) {
+            generatedData.put(fieldName, generateBoolean());
+        }
+
         for (String fieldName : intConstraints.keySet()) {
             generatedData.put(fieldName, generateInt(fieldName));
         }
 
+        for (String fieldName : longConstraints.keySet()) {
+            generatedData.put(fieldName, generateLong(fieldName));
+        }
+
+        for (String fieldName : byteConstraints.keySet()) {
+            generatedData.put(fieldName, generateByte(fieldName));
+        }
+
+        for (String fieldName : shortConstraints.keySet()) {
+            generatedData.put(fieldName, generateShort(fieldName));
+        }
+
         for (String fieldName : doubleConstraints.keySet()) {
             generatedData.put(fieldName, generateDouble(fieldName));
+        }
+
+        for (String fieldName : floatConstraints.keySet()) {
+            generatedData.put(fieldName, generateFloat(fieldName));
         }
 
         for (String fieldName : templates.keySet()) {
@@ -74,6 +122,10 @@ public class DataGenerator {
         MinMax minMax = selectMinMax(firstLimit, secondLimit);
 
         return generateRandomString(minMax.min, minMax.max);
+    }
+
+    private boolean generateBoolean() {
+        return new Random().nextBoolean();
     }
 
     public static String generateRandomString(int minLength, int maxLength) {
@@ -103,15 +155,73 @@ public class DataGenerator {
         return rndInt(minMax.min, minMax.max);
     }
 
-    public static int rndInt(int min, int max)
-    {
+    private byte generateByte(String fieldName) {
+        ByteConstraint constraint = byteConstraints.get(fieldName);
+        byte firstLimit = constraint.getFirstLimit();
+        byte secondLimit = constraint.getSecondLimit();
+
+        MinMax minMax = selectMinMax(firstLimit, secondLimit);
+
+        return rndByte((byte) minMax.min, (byte) minMax.max);
+    }
+
+    private short generateShort(String fieldName) {
+        ShortConstraint constraint = shortConstraints.get(fieldName);
+        short firstLimit = constraint.getFirstLimit();
+        short secondLimit = constraint.getSecondLimit();
+
+        MinMax minMax = selectMinMax(firstLimit, secondLimit);
+
+        return rndShort((short) minMax.min, (short) minMax.max);
+    }
+
+    private Long generateLong(String fieldName) {
+        LongConstraint constraint = longConstraints.get(fieldName);
+        Long firstLimit = constraint.getFirstLimit();
+        Long secondLimit = constraint.getSecondLimit();
+
+        Long min;
+        Long max;
+
+        if (firstLimit >= secondLimit) {
+            min = secondLimit;
+            max = firstLimit;
+        } else {
+            min = firstLimit;
+            max = secondLimit;
+        }
+
+        return rndLong(min, max);
+    }
+
+    public static int rndInt(int min, int max) {
         max -= min;
         return (int) (Math.random() * ++max) + min;
     }
-    public static double rndDouble(double min, double max)
-    {
+
+    public static byte rndByte(byte min, byte max) {
+        max -= min;
+        return (byte) ((byte) (Math.random() * ++max) + min);
+    }
+
+    public static short rndShort(short min, short max) {
+        max -= min;
+        return (short) ((short) (Math.random() * ++max) + min);
+    }
+
+    public static Long rndLong(Long min, Long max) {
+        max -= min;
+        return (long) (Math.random() * ++max) + min;
+    }
+
+    public static double rndDouble(double min, double max) {
         max -= min;
         return (double) (Math.random() * ++max) + min;
+    }
+
+    public static float rndFloat(float min, float max) {
+        max -= min;
+        return (float) (Math.random() * ++max) + min;
     }
 
     private double generateDouble(String fieldName) {
@@ -128,6 +238,24 @@ public class DataGenerator {
 
         double scale = Math.pow(10, decimalPlaces);
         double roundedValue = Math.round(generatedValue * scale) / scale;
+
+        return roundedValue;
+    }
+
+    private float generateFloat(String fieldName) {
+        FloatConstraint constraint = floatConstraints.get(fieldName);
+
+        float firstLimit = constraint.getFirstLimit();
+        float secondLimit = constraint.getSecondLimit();
+        int decimalPlaces = constraint.getDecimalPlaces();
+
+
+        MinMax minMax = selectMinMax((int) firstLimit, (int) secondLimit);
+
+        float generatedValue = rndFloat(minMax.min, minMax.max);
+
+        float scale = (float) Math.pow(10, decimalPlaces);
+        float roundedValue = Math.round(generatedValue * scale) / scale;
 
         return roundedValue;
     }

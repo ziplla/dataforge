@@ -21,6 +21,7 @@ public class DataGenerator {
     private final Map<String, Template> templates;
     private final Map<String, LongConstraint> longConstraints;
     private final Map<String, FloatConstraint> floatConstraints;
+    private final Map<String, ByteConstraint> byteConstraints;
 
     public DataGenerator() {
         this.generatedData = new HashMap<>();
@@ -30,6 +31,7 @@ public class DataGenerator {
         this.templates = new HashMap<>();
         this.longConstraints = new HashMap<>();
         this.floatConstraints = new HashMap<>();
+        this.byteConstraints = new HashMap<>();
     }
 
     public void addStringField(String fieldName, StringConstraint constraints) {
@@ -42,6 +44,10 @@ public class DataGenerator {
 
     public void addLongField(String fieldName, LongConstraint constraints) {
         longConstraints.put(fieldName, constraints);
+    }
+
+    public void addByteField(String fieldName, ByteConstraint constraints) {
+        byteConstraints.put(fieldName, constraints);
     }
 
     public void addDoubleField(String fieldName, DoubleConstraint constraints) {
@@ -67,6 +73,10 @@ public class DataGenerator {
 
         for (String fieldName : longConstraints.keySet()) {
             generatedData.put(fieldName, generateLong(fieldName));
+        }
+
+        for (String fieldName : byteConstraints.keySet()) {
+            generatedData.put(fieldName, generateByte(fieldName));
         }
 
         for (String fieldName : doubleConstraints.keySet()) {
@@ -121,6 +131,16 @@ public class DataGenerator {
         return rndInt(minMax.min, minMax.max);
     }
 
+    private byte generateByte(String fieldName) {
+        ByteConstraint constraint = byteConstraints.get(fieldName);
+        byte firstLimit = constraint.getFirstLimit();
+        byte secondLimit = constraint.getSecondLimit();
+
+        MinMax minMax = selectMinMax(firstLimit, secondLimit);
+
+        return rndByte((byte) minMax.min, (byte) minMax.max);
+    }
+
     private Long generateLong(String fieldName) {
         LongConstraint constraint = longConstraints.get(fieldName);
         Long firstLimit = constraint.getFirstLimit();
@@ -140,26 +160,27 @@ public class DataGenerator {
         return rndLong(min, max);
     }
 
-    public static int rndInt(int min, int max)
-    {
+    public static int rndInt(int min, int max) {
         max -= min;
         return (int) (Math.random() * ++max) + min;
     }
 
-    public static Long rndLong(Long min, Long max)
-    {
+    public static byte rndByte(byte min, byte max) {
+        max -= min;
+        return (byte) ((byte) (Math.random() * ++max) + min);
+    }
+
+    public static Long rndLong(Long min, Long max) {
         max -= min;
         return (long) (Math.random() * ++max) + min;
     }
 
-    public static double rndDouble(double min, double max)
-    {
+    public static double rndDouble(double min, double max) {
         max -= min;
         return (double) (Math.random() * ++max) + min;
     }
 
-    public static float rndFloat(float min, float max)
-    {
+    public static float rndFloat(float min, float max) {
         max -= min;
         return (float) (Math.random() * ++max) + min;
     }

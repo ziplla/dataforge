@@ -24,4 +24,8 @@ public class Constraints {
     public static ByteConstraint rangeByte(Byte firstLimit, Byte secondLimit) {
         return new ByteConstraint(firstLimit, secondLimit);
     }
+
+    public static ShortConstraint rangeShort(Short firstLimit, Short secondLimit) {
+        return new ShortConstraint(firstLimit, secondLimit);
+    }
 }

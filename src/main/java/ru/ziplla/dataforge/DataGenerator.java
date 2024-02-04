@@ -1,9 +1,6 @@
 package ru.ziplla.dataforge;
 
-import ru.ziplla.dataforge.constraints.DoubleConstraint;
-import ru.ziplla.dataforge.constraints.IntConstraint;
-import ru.ziplla.dataforge.constraints.LongConstraint;
-import ru.ziplla.dataforge.constraints.StringConstraint;
+import ru.ziplla.dataforge.constraints.*;
 import ru.ziplla.dataforge.templates.Template;
 import lombok.Getter;
 import lombok.ToString;
@@ -23,6 +20,7 @@ public class DataGenerator {
     private final Map<String, DoubleConstraint> doubleConstraints;
     private final Map<String, Template> templates;
     private final Map<String, LongConstraint> longConstraints;
+    private final Map<String, FloatConstraint> floatConstraints;
 
     public DataGenerator() {
         this.generatedData = new HashMap<>();
@@ -31,6 +29,7 @@ public class DataGenerator {
         this.doubleConstraints = new HashMap<>();
         this.templates = new HashMap<>();
         this.longConstraints = new HashMap<>();
+        this.floatConstraints = new HashMap<>();
     }
 
     public void addStringField(String fieldName, StringConstraint constraints) {
@@ -47,6 +46,10 @@ public class DataGenerator {
 
     public void addDoubleField(String fieldName, DoubleConstraint constraints) {
         doubleConstraints.put(fieldName, constraints);
+    }
+
+    public void addFloatField(String fieldName, FloatConstraint constraints) {
+        floatConstraints.put(fieldName, constraints);
     }
 
     public void addTemplate(String fieldName, Template template) {
@@ -68,6 +71,10 @@ public class DataGenerator {
 
         for (String fieldName : doubleConstraints.keySet()) {
             generatedData.put(fieldName, generateDouble(fieldName));
+        }
+
+        for (String fieldName : floatConstraints.keySet()) {
+            generatedData.put(fieldName, generateFloat(fieldName));
         }
 
         for (String fieldName : templates.keySet()) {
@@ -151,6 +158,12 @@ public class DataGenerator {
         return (double) (Math.random() * ++max) + min;
     }
 
+    public static float rndFloat(float min, float max)
+    {
+        max -= min;
+        return (float) (Math.random() * ++max) + min;
+    }
+
     private double generateDouble(String fieldName) {
         DoubleConstraint constraint = doubleConstraints.get(fieldName);
 
@@ -165,6 +178,24 @@ public class DataGenerator {
 
         double scale = Math.pow(10, decimalPlaces);
         double roundedValue = Math.round(generatedValue * scale) / scale;
+
+        return roundedValue;
+    }
+
+    private float generateFloat(String fieldName) {
+        FloatConstraint constraint = floatConstraints.get(fieldName);
+
+        float firstLimit = constraint.getFirstLimit();
+        float secondLimit = constraint.getSecondLimit();
+        int decimalPlaces = constraint.getDecimalPlaces();
+
+
+        MinMax minMax = selectMinMax((int) firstLimit, (int) secondLimit);
+
+        float generatedValue = rndFloat(minMax.min, minMax.max);
+
+        float scale = (float) Math.pow(10, decimalPlaces);
+        float roundedValue = Math.round(generatedValue * scale) / scale;
 
         return roundedValue;
     }

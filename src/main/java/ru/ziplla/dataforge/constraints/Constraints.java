@@ -1,11 +1,11 @@
 package ru.ziplla.dataforge.constraints;
 
 public class Constraints {
-    public static StringConstraint length(int firstLimit, int secondLimit) {
+    public static StringConstraint lengthString(int firstLimit, int secondLimit) {
         return new StringConstraint(firstLimit, secondLimit);
     }
 
-    public static IntConstraint range(int firstLimit, int secondLimit) {
+    public static IntConstraint rangeInt(int firstLimit, int secondLimit) {
         return new IntConstraint(firstLimit, secondLimit);
     }
 

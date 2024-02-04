@@ -23,6 +23,7 @@ public class DataGenerator {
     private final Map<String, FloatConstraint> floatConstraints;
     private final Map<String, ByteConstraint> byteConstraints;
     private final Map<String, ShortConstraint> shortConstraints;
+    private final Map<String, Boolean> booleanConstraints;
 
     public DataGenerator() {
         this.generatedData = new HashMap<>();
@@ -34,6 +35,7 @@ public class DataGenerator {
         this.floatConstraints = new HashMap<>();
         this.byteConstraints = new HashMap<>();
         this.shortConstraints = new HashMap<>();
+        this.booleanConstraints = new HashMap<>();
     }
 
     public void addStringField(String fieldName, StringConstraint constraints) {
@@ -64,6 +66,10 @@ public class DataGenerator {
         floatConstraints.put(fieldName, constraints);
     }
 
+    public void addBooleanField(String fieldName) {
+        booleanConstraints.put(fieldName, true);
+    }
+
     public void addTemplate(String fieldName, Template template) {
         templates.put(fieldName, template);
     }
@@ -71,6 +77,10 @@ public class DataGenerator {
     public Map<String, Object> generate() {
         for (String fieldName : stringConstraints.keySet()) {
             generatedData.put(fieldName, generateString(fieldName));
+        }
+
+        for (String fieldName : booleanConstraints.keySet()) {
+            generatedData.put(fieldName, generateBoolean());
         }
 
         for (String fieldName : intConstraints.keySet()) {
@@ -112,6 +122,10 @@ public class DataGenerator {
         MinMax minMax = selectMinMax(firstLimit, secondLimit);
 
         return generateRandomString(minMax.min, minMax.max);
+    }
+
+    private boolean generateBoolean() {
+        return new Random().nextBoolean();
     }
 
     public static String generateRandomString(int minLength, int maxLength) {

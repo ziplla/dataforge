@@ -20,4 +20,8 @@ public class Constraints {
     public static LongConstraint rangeLong(Long firstLimit, Long secondLimit) {
         return new LongConstraint(firstLimit, secondLimit);
     }
+
+    public static ByteConstraint rangeByte(Byte firstLimit, Byte secondLimit) {
+        return new ByteConstraint(firstLimit, secondLimit);
+    }
 }

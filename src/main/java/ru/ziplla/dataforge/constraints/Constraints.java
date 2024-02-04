@@ -13,6 +13,10 @@ public class Constraints {
         return new DoubleConstraint(firstLimit, secondLimit, decimalPlaces);
     }
 
+    public static DoubleConstraint rangeDouble(double firstLimit, double secondLimit) {
+        return new DoubleConstraint(firstLimit, secondLimit);
+    }
+
     public static FloatConstraint rangeFloat(float firstLimit, float secondLimit, int decimalPlaces) {
         return new FloatConstraint(firstLimit, secondLimit, decimalPlaces);
     }

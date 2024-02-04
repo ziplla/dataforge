@@ -12,4 +12,8 @@ public class Constraints {
     public static DoubleConstraint rangeDouble(double firstLimit, double secondLimit, int decimalPlaces) {
         return new DoubleConstraint(firstLimit, secondLimit, decimalPlaces);
     }
+
+    public static LongConstraint rangeLong(Long firstLimit, Long secondLimit) {
+        return new LongConstraint(firstLimit, secondLimit);
+    }
 }

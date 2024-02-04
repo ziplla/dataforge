@@ -2,6 +2,7 @@ package ru.ziplla.dataforge;
 
 import ru.ziplla.dataforge.constraints.DoubleConstraint;
 import ru.ziplla.dataforge.constraints.IntConstraint;
+import ru.ziplla.dataforge.constraints.LongConstraint;
 import ru.ziplla.dataforge.constraints.StringConstraint;
 import ru.ziplla.dataforge.templates.Template;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class DataGenerator {
     private final Map<String, IntConstraint> intConstraints;
     private final Map<String, DoubleConstraint> doubleConstraints;
     private final Map<String, Template> templates;
+    private final Map<String, LongConstraint> longConstraints;
 
     public DataGenerator() {
         this.generatedData = new HashMap<>();
@@ -28,6 +30,7 @@ public class DataGenerator {
         this.intConstraints = new HashMap<>();
         this.doubleConstraints = new HashMap<>();
         this.templates = new HashMap<>();
+        this.longConstraints = new HashMap<>();
     }
 
     public void addStringField(String fieldName, StringConstraint constraints) {
@@ -36,6 +39,10 @@ public class DataGenerator {
 
     public void addIntegerField(String fieldName, IntConstraint constraints) {
         intConstraints.put(fieldName, constraints);
+    }
+
+    public void addLongField(String fieldName, LongConstraint constraints) {
+        longConstraints.put(fieldName, constraints);
     }
 
     public void addDoubleField(String fieldName, DoubleConstraint constraints) {
@@ -53,6 +60,10 @@ public class DataGenerator {
 
         for (String fieldName : intConstraints.keySet()) {
             generatedData.put(fieldName, generateInt(fieldName));
+        }
+
+        for (String fieldName : longConstraints.keySet()) {
+            generatedData.put(fieldName, generateLong(fieldName));
         }
 
         for (String fieldName : doubleConstraints.keySet()) {
@@ -103,11 +114,37 @@ public class DataGenerator {
         return rndInt(minMax.min, minMax.max);
     }
 
+    private Long generateLong(String fieldName) {
+        LongConstraint constraint = longConstraints.get(fieldName);
+        Long firstLimit = constraint.getFirstLimit();
+        Long secondLimit = constraint.getSecondLimit();
+
+        Long min;
+        Long max;
+
+        if (firstLimit >= secondLimit) {
+            min = secondLimit;
+            max = firstLimit;
+        } else {
+            min = firstLimit;
+            max = secondLimit;
+        }
+
+        return rndLong(min, max);
+    }
+
     public static int rndInt(int min, int max)
     {
         max -= min;
         return (int) (Math.random() * ++max) + min;
     }
+
+    public static Long rndLong(Long min, Long max)
+    {
+        max -= min;
+        return (long) (Math.random() * ++max) + min;
+    }
+
     public static double rndDouble(double min, double max)
     {
         max -= min;

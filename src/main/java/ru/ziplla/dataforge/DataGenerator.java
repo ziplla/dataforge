@@ -22,6 +22,7 @@ public class DataGenerator {
     private final Map<String, LongConstraint> longConstraints;
     private final Map<String, FloatConstraint> floatConstraints;
     private final Map<String, ByteConstraint> byteConstraints;
+    private final Map<String, ShortConstraint> shortConstraints;
 
     public DataGenerator() {
         this.generatedData = new HashMap<>();
@@ -32,6 +33,7 @@ public class DataGenerator {
         this.longConstraints = new HashMap<>();
         this.floatConstraints = new HashMap<>();
         this.byteConstraints = new HashMap<>();
+        this.shortConstraints = new HashMap<>();
     }
 
     public void addStringField(String fieldName, StringConstraint constraints) {
@@ -48,6 +50,10 @@ public class DataGenerator {
 
     public void addByteField(String fieldName, ByteConstraint constraints) {
         byteConstraints.put(fieldName, constraints);
+    }
+
+    public void addShortField(String fieldName, ShortConstraint constraints) {
+        shortConstraints.put(fieldName, constraints);
     }
 
     public void addDoubleField(String fieldName, DoubleConstraint constraints) {
@@ -77,6 +83,10 @@ public class DataGenerator {
 
         for (String fieldName : byteConstraints.keySet()) {
             generatedData.put(fieldName, generateByte(fieldName));
+        }
+
+        for (String fieldName : shortConstraints.keySet()) {
+            generatedData.put(fieldName, generateShort(fieldName));
         }
 
         for (String fieldName : doubleConstraints.keySet()) {
@@ -141,6 +151,16 @@ public class DataGenerator {
         return rndByte((byte) minMax.min, (byte) minMax.max);
     }
 
+    private short generateShort(String fieldName) {
+        ShortConstraint constraint = shortConstraints.get(fieldName);
+        short firstLimit = constraint.getFirstLimit();
+        short secondLimit = constraint.getSecondLimit();
+
+        MinMax minMax = selectMinMax(firstLimit, secondLimit);
+
+        return rndShort((short) minMax.min, (short) minMax.max);
+    }
+
     private Long generateLong(String fieldName) {
         LongConstraint constraint = longConstraints.get(fieldName);
         Long firstLimit = constraint.getFirstLimit();
@@ -168,6 +188,11 @@ public class DataGenerator {
     public static byte rndByte(byte min, byte max) {
         max -= min;
         return (byte) ((byte) (Math.random() * ++max) + min);
+    }
+
+    public static short rndShort(short min, short max) {
+        max -= min;
+        return (short) ((short) (Math.random() * ++max) + min);
     }
 
     public static Long rndLong(Long min, Long max) {

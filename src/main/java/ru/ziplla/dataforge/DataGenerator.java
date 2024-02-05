@@ -27,6 +27,7 @@ public class DataGenerator {
     private final Map<String, Integer> integerWithNoLimits;
     private final Map<String, Long> longWithNoLimits;
     private final Map<String, Double> doubleWithNoLimits;
+    private final Map<String, Float> floatWithNoLimits;
 
     public DataGenerator() {
         this.generatedData = new HashMap<>();
@@ -42,6 +43,7 @@ public class DataGenerator {
         this.integerWithNoLimits = new HashMap<>();
         this.longWithNoLimits = new HashMap<>();
         this.doubleWithNoLimits = new HashMap<>();
+        this.floatWithNoLimits = new HashMap<>();
     }
 
     public void addStringField(String fieldName, StringConstraint constraints) {
@@ -54,6 +56,10 @@ public class DataGenerator {
 
     public void addIntegerField(String fieldName) {
         integerWithNoLimits.put(fieldName, null);
+    }
+
+    public void addFloatField(String fieldName) {
+        floatWithNoLimits.put(fieldName, null);
     }
 
     public void addLongField(String fieldName, LongConstraint constraints) {
@@ -103,6 +109,10 @@ public class DataGenerator {
 
         for (String fieldName : integerWithNoLimits.keySet()) {
             generatedData.put(fieldName, generateIntegerWithNoLimits());
+        }
+
+        for (String fieldName : floatWithNoLimits.keySet()) {
+            generatedData.put(fieldName, generateFloatWithNoLimits());
         }
 
         for (String fieldName : doubleWithNoLimits.keySet()) {
@@ -160,6 +170,10 @@ public class DataGenerator {
 
     private int generateIntegerWithNoLimits() {
         return new Random().nextInt();
+    }
+
+    private float generateFloatWithNoLimits() {
+        return new Random().nextFloat();
     }
 
     private double generateDoubleWithNoLimits() {

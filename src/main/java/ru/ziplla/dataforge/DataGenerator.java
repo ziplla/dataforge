@@ -1,12 +1,11 @@
 package ru.ziplla.dataforge;
 
-import ru.ziplla.dataforge.constraints.*;
-import ru.ziplla.dataforge.templates.Template;
 import lombok.Getter;
 import lombok.ToString;
+import ru.ziplla.dataforge.constraints.*;
+import ru.ziplla.dataforge.templates.Template;
 
 import java.util.HashMap;
-
 import java.util.Map;
 import java.util.Random;
 
@@ -44,6 +43,36 @@ public class DataGenerator {
         this.longWithNoLimits = new HashMap<>();
         this.doubleWithNoLimits = new HashMap<>();
         this.floatWithNoLimits = new HashMap<>();
+    }
+
+    public static int rndInt(int min, int max) {
+        max -= min;
+        return (int) (Math.random() * ++max) + min;
+    }
+
+    public static byte rndByte(byte min, byte max) {
+        max -= min;
+        return (byte) ((byte) (Math.random() * ++max) + min);
+    }
+
+    public static short rndShort(short min, short max) {
+        max -= min;
+        return (short) ((short) (Math.random() * ++max) + min);
+    }
+
+    public static Long rndLong(Long min, Long max) {
+        max -= min;
+        return (long) (Math.random() * ++max) + min;
+    }
+
+    public static double rndDouble(double min, double max) {
+        max -= min;
+        return (Math.random() * ++max) + min;
+    }
+
+    public static float rndFloat(float min, float max) {
+        max -= min;
+        return (float) (Math.random() * ++max) + min;
     }
 
     public void addStringField(String fieldName, StringConstraint constraints) {
@@ -284,36 +313,6 @@ public class DataGenerator {
         return rndLong(min, max);
     }
 
-    public static int rndInt(int min, int max) {
-        max -= min;
-        return (int) (Math.random() * ++max) + min;
-    }
-
-    public static byte rndByte(byte min, byte max) {
-        max -= min;
-        return (byte) ((byte) (Math.random() * ++max) + min);
-    }
-
-    public static short rndShort(short min, short max) {
-        max -= min;
-        return (short) ((short) (Math.random() * ++max) + min);
-    }
-
-    public static Long rndLong(Long min, Long max) {
-        max -= min;
-        return (long) (Math.random() * ++max) + min;
-    }
-
-    public static double rndDouble(double min, double max) {
-        max -= min;
-        return (double) (Math.random() * ++max) + min;
-    }
-
-    public static float rndFloat(float min, float max) {
-        max -= min;
-        return (float) (Math.random() * ++max) + min;
-    }
-
     private double generateDouble(String fieldName) {
         DoubleConstraint constraint = doubleConstraints.get(fieldName);
 
@@ -363,16 +362,6 @@ public class DataGenerator {
         return template.generate();
     }
 
-    class MinMax {
-        final int min;
-        final int max;
-
-        public MinMax(int min, int max) {
-            this.min = min;
-            this.max = max;
-        }
-    }
-
     private MinMax selectMinMax(int firstLimit, int secondLimit) {
         int min;
         int max;
@@ -386,5 +375,15 @@ public class DataGenerator {
         }
 
         return new MinMax(min, max);
+    }
+
+    class MinMax {
+        final int min;
+        final int max;
+
+        public MinMax(int min, int max) {
+            this.min = min;
+            this.max = max;
+        }
     }
 }

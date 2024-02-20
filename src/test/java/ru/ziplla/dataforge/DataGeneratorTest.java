@@ -1,12 +1,12 @@
 package ru.ziplla.dataforge;
 
+import org.junit.Before;
+import org.junit.Test;
 import ru.ziplla.dataforge.constraints.DoubleConstraint;
 import ru.ziplla.dataforge.constraints.IntConstraint;
 import ru.ziplla.dataforge.constraints.StringConstraint;
 import ru.ziplla.dataforge.templates.EmailTemplate;
 import ru.ziplla.dataforge.templates.Template;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.util.Map;
 

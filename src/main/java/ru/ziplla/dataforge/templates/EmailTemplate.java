@@ -8,12 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class EmailTemplate implements Template{
-
-    @Override
-    public Object generate() {
-        return generateRandomEmail();
-    }
+public class EmailTemplate implements Template {
 
     public static String generateRandomEmail() {
         Random random = new Random();
@@ -38,5 +33,10 @@ public class EmailTemplate implements Template{
             return "Exception";
         }
 
+    }
+
+    @Override
+    public Object generate() {
+        return generateRandomEmail();
     }
 }

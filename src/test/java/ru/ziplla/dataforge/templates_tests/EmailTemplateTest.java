@@ -1,15 +1,16 @@
 package ru.ziplla.dataforge.templates_tests;
 
+import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;
 import ru.ziplla.dataforge.templates.EmailTemplate;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class EmailTemplateTest {
 

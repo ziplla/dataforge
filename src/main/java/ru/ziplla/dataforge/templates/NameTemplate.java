@@ -10,11 +10,6 @@ import java.util.Random;
 
 public class NameTemplate implements Template {
 
-    @Override
-    public Object generate() {
-        return generateRandomName();
-    }
-
     public static String generateRandomName() {
         Random random = new Random();
 
@@ -40,6 +35,11 @@ public class NameTemplate implements Template {
             e.printStackTrace();
             return "Exception";
         }
+    }
+
+    @Override
+    public Object generate() {
+        return generateRandomName();
     }
 }
 

@@ -3,7 +3,8 @@ package ru.ziplla.dataforge.templates_tests;
 import org.junit.Test;
 import ru.ziplla.dataforge.templates.NameTemplate;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 public class NameTemplateTest {
 

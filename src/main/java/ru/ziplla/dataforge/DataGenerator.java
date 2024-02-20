@@ -156,12 +156,19 @@ public class DataGenerator {
 
     private String generateString(String fieldName) {
         StringConstraint constraint = stringConstraints.get(fieldName);
+        Language language = constraint.getLanguage();
         int firstLimit = constraint.getFirstLimit();
         int secondLimit = constraint.getSecondLimit();
 
         MinMax minMax = selectMinMax(firstLimit, secondLimit);
 
-        return generateRandomString(minMax.min, minMax.max);
+        if (language != null) {
+            return generateRandomStringWithLanguageParam(minMax.min, minMax.max, language);
+        } else {
+            return generateDefaultRandomString(minMax.min, minMax.max);
+        }
+
+
     }
 
     private boolean generateBoolean() {
@@ -184,7 +191,34 @@ public class DataGenerator {
         return new Random().nextLong();
     }
 
-    public static String generateRandomString(int minLength, int maxLength) {
+    public static String generateRandomStringWithLanguageParam(int minLength, int maxLength, Language language) {
+        if (minLength < 0 || maxLength < 0 || minLength > maxLength) {
+            throw new IllegalArgumentException("Incorrect string length parameters");
+        }
+
+        Random random = new Random();
+        int length = minLength + random.nextInt(maxLength - minLength + 1);
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            char randomChar;
+            switch (language) {
+                case en:
+                    randomChar = (char) (random.nextInt(26) + 'a');
+                    break;
+                case ru:
+                    randomChar = (char) (random.nextInt(32) + 'а');
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unsupported language");
+            }
+            sb.append(randomChar);
+        }
+
+        return sb.toString();
+    }
+
+    public static String generateDefaultRandomString(int minLength, int maxLength) {
         if (minLength < 0 || maxLength < 0 || minLength > maxLength) {
             throw new IllegalArgumentException("Incorrect string length parameters");
         }

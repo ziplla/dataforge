@@ -5,6 +5,10 @@ public class Constraints {
         return new StringConstraint(firstLimit, secondLimit);
     }
 
+    public static StringConstraint lengthString(int firstLimit, int secondLimit, Language language) {
+        return new StringConstraint(firstLimit, secondLimit, language);
+    }
+
     public static IntConstraint rangeInt(int firstLimit, int secondLimit) {
         return new IntConstraint(firstLimit, secondLimit);
     }

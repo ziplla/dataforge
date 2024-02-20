@@ -236,7 +236,7 @@ public class DataGenerator {
                     randomChar = (char) (random.nextInt(26) + 'a');
                     break;
                 case ru:
-                    randomChar = (char) (random.nextInt(32) + 'а');
+                    randomChar = (char) (random.nextInt(32) + '\u0430');
                     break;
                 default:
                     throw new IllegalArgumentException("Unsupported language");
